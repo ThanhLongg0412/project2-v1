@@ -101,8 +101,4 @@ Route::get('/academic_affairs/points/subject', [PointController::class, 'indexSu
 
 Route::get('/academic_affairs/points/point', [PointController::class, 'indexPoint'])->name('aa-point-point');
 
-Route::get('/academic_affairs/points/edit', [PointController::class, 'edit'])->name('aa-point-edit');
-
-Route::post('/academic_affairs/points/insert', [PointController::class, 'insert'])->name('aa-point-insert');
-
 Route::post('/save-point-data', [PointController::class, 'saveData']);

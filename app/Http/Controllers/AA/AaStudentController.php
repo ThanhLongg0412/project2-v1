@@ -73,8 +73,6 @@ class AaStudentController extends Controller
         $name = $request->input('name');
         $student_code = $request->input('student_code');
         $email = $request->input('email');
-        $password = $request->input('password');
-        $hashedPassword = Hash::make($password);
         $class_name = $request->input('class_name');
         $validator = Validator::make($request->all(), [
             'email' => [
@@ -95,7 +93,6 @@ class AaStudentController extends Controller
             'name' => $name,
             'student_code' => $student_code,
             'email' => $email,
-            'password' => $hashedPassword,
             'class_id' => $class_name
         ]);
         if($result){

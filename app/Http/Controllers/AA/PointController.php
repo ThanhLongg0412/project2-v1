@@ -46,46 +46,13 @@ class PointController extends Controller
         return view('academic_affairs.points.index_point', ['class_subject_students' => $class_subject_students, 'class_subjects' => $class_subjects, 'users' => $users, 'points' => $points]);
     }
 
-    function edit(Request $request){
-        $point_id = $request->input('point_id');
-        $points = DB::table('points')
-            ->join('class_subject_students', 'points.css_id', '=', 'class_subject_students.css_id')
-            ->join('users', 'class_subject_students.id', '=', 'users.id')
-            ->join('class_subjects', 'class_subject_students.cs_id', '=', 'class_subjects.cs_id')
-            ->where('points.point_id', '=', $point_id)
-            ->select('points.*', 'class_subject_students.*', 'users.*', 'class_subjects.*')->get();
-        $class_subject_students = DB::table('class_subject_students')->get();
-        $users = DB::table('users')->get();
-        $class_subjects = DB::table('class_subjects')->get();
-        return view('academic_affairs.points.edit_point', ['points' => $points, 'class_subject_students' => $class_subject_students, 'class_subjects' => $class_subjects, 'users' => $users]);
-    }
-
-//    function insert(Request $request){
-//        $point_id = $request->input('point_id');
-//        $theory = $request->input('theory');
-//        $practice = $request->input('practice');
-//        $asm = $request->input('asm');
-//        $result = DB::table('points')->where('point_id', '=', $point_id)->update([
-//            'theory' => $theory,
-//            'practice' => $practice,
-//            'asm' => $asm
-//        ]);
-//        if($result){
-//            flash()->addSuccess('Cập nhật thành công!');
-//            return redirect()->route('aa-point-point');
-//        }else {
-//            flash()->addError('Cập nhật thất bại!');
-//            return redirect()->route('aa-point-point');
-////            return redirect()->back()->getTargetUrl();
-//        }
-//    }
-
     public function saveData(Request $request)
     {
         $pointId = $request->input('pointId');
         $theory = $request->input('theory');
         $practice = $request->input('practice');
         $asm = $request->input('asm');
+        $result = $request->input('result');
 
         DB::table('points')
             ->where('point_id', $pointId)
@@ -93,6 +60,7 @@ class PointController extends Controller
                 'theory' => $theory,
                 'practice' => $practice,
                 'asm' => $asm,
+                'result' => $result
             ]);
 
         return response()->json(['success' => true]);
